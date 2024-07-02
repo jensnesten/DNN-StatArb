@@ -1,5 +1,10 @@
 import json
+import os 
 import requests
+from dotenv import load_env
+
+load_env()
+api_key = os.getenv('API_KEY')
 
 print("Available asset types are: ")
 print("1. CfdOnIndex")
@@ -26,7 +31,7 @@ elif user_input == "6":
 
 def main():
     headers = {
-        "Authorization": "Bearer eyJhbGciOiJFUzI1NiIsIng1dCI6IjI3RTlCOTAzRUNGMjExMDlBREU1RTVCOUVDMDgxNkI2QjQ5REEwRkEifQ.eyJvYWEiOiI3Nzc3NSIsImlzcyI6Im9hIiwiYWlkIjoiMTA5IiwidWlkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiY2lkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiaXNhIjoiRmFsc2UiLCJ0aWQiOiIyMDAyIiwic2lkIjoiZTNkYjFlM2E0NTVlNDJmOWE5OTQ0N2M1ZGFiZGE0OGQiLCJkZ2kiOiI4NCIsImV4cCI6IjE3MjQ5NDI2MjQiLCJvYWwiOiIxRiIsImlpZCI6ImQ1M2ExM2MzZjhjODQzM2FhMmUwMDhkYzYwZjUwZDQzIn0.bmJmSaDkDHZ8IbxMHOqc2KRTw7rk83ZDlstcN3oa6wbDdfFiECpX0TrQvv5Y3IxuuGHvZBWhQg_sQ9VypJI6Mg"
+        "Authorization": f"Bearer {api_key}"
     }
     response = get_data(headers, assetType)
     

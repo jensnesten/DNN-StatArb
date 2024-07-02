@@ -6,7 +6,9 @@ from lightweight_charts import Chart
 import pandas as pd
 from dotenv import load_dotenv
 from datetime import datetime
+load_dotenv()
 
+apikey = os.getenv('API_KEY')
 
 def main():
 
@@ -40,7 +42,7 @@ def main():
     
 
     headers = {
-        "Authorization": "Bearer eyJhbGciOiJFUzI1NiIsIng1dCI6IjI3RTlCOTAzRUNGMjExMDlBREU1RTVCOUVDMDgxNkI2QjQ5REEwRkEifQ.eyJvYWEiOiI3Nzc3NSIsImlzcyI6Im9hIiwiYWlkIjoiMTA5IiwidWlkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiY2lkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiaXNhIjoiRmFsc2UiLCJ0aWQiOiIyMDAyIiwic2lkIjoiYWY4NTc3Y2E4MjQ1NGM2ZmI1MjRkMjAxZjQ4ZGYxN2YiLCJkZ2kiOiI4NCIsImV4cCI6IjE3MjUwMTM4MjIiLCJvYWwiOiIxRiIsImlpZCI6ImQ1M2ExM2MzZjhjODQzM2FhMmUwMDhkYzYwZjUwZDQzIn0.E2-aw2Te_3T5fwC43bYPk1bVCsH_nPb9JEThDlMnCiNVAWD_UOUZt_PaqCwIM8TIm4SwII_B63eeMCeMoMlzRA"
+        "Authorization": f"Bearer {apikey}"
     }
 
     response = get_data(headers, assetType)

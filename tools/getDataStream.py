@@ -2,6 +2,8 @@ import websocket
 import json
 import uuid
 import requests
+import os
+from dotenv import load_dotenv
 import urllib.parse
 
 def is_websockets_supported():
@@ -118,7 +120,10 @@ def subscribe_to_prices(api_url, access_token, context_id, reference_id, asset_t
 
 if __name__ == "__main__":
     # Replace with your actual access token
-    access_token = "eyJhbGciOiJFUzI1NiIsIng1dCI6IjI3RTlCOTAzRUNGMjExMDlBREU1RTVCOUVDMDgxNkI2QjQ5REEwRkEifQ.eyJvYWEiOiI3Nzc3NSIsImlzcyI6Im9hIiwiYWlkIjoiMTA5IiwidWlkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiY2lkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiaXNhIjoiRmFsc2UiLCJ0aWQiOiIyMDAyIiwic2lkIjoiZTNkYjFlM2E0NTVlNDJmOWE5OTQ0N2M1ZGFiZGE0OGQiLCJkZ2kiOiI4NCIsImV4cCI6IjE3MjQ5NDI2MjQiLCJvYWwiOiIxRiIsImlpZCI6ImQ1M2ExM2MzZjhjODQzM2FhMmUwMDhkYzYwZjUwZDQzIn0.bmJmSaDkDHZ8IbxMHOqc2KRTw7rk83ZDlstcN3oa6wbDdfFiECpX0TrQvv5Y3IxuuGHvZBWhQg_sQ9VypJI6Mg"
+
+    load_dotenv()
+    access_token = os.getenv('API_KEY')
+    account_key = os.getenv('account_key')
     
     # Generate a unique context ID
     context_id = "MyApp_" + str(uuid.uuid4().int)[:13]
@@ -136,8 +141,8 @@ if __name__ == "__main__":
     uic = 21
     
     # Define the reference ID, account key, amount, and field groups
-    reference_id = "MyPricesEvent"
-    account_key = "M6MJymvlppmOb1|U26BKCw=="
+    reference_id = f"MyPricesEvent"
+    account_key = account_key
     amount = 1000
     field_groups = [
         "Commissions",

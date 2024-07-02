@@ -8,11 +8,15 @@ from dotenv import load_dotenv
 from datetime import datetime
 from tqdm import tqdm
 
+load_dotenv()
+
+api_key = os.getenv('API_KEY')
+
 
 def main():
 
     headers = {
-        "Authorization": "Bearer eyJhbGciOiJFUzI1NiIsIng1dCI6IjI3RTlCOTAzRUNGMjExMDlBREU1RTVCOUVDMDgxNkI2QjQ5REEwRkEifQ.eyJvYWEiOiI3Nzc3NSIsImlzcyI6Im9hIiwiYWlkIjoiMTA5IiwidWlkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiY2lkIjoiTTZNSnltdmxwcG1PYjF8VTI2QktDdz09IiwiaXNhIjoiRmFsc2UiLCJ0aWQiOiIyMDAyIiwic2lkIjoiNTBjNzQ0OWJhZWQ0NDYyNTkwM2M5Mzc2NDYwZjQ0ZDEiLCJkZ2kiOiI4NCIsImV4cCI6IjE3MjU1NjA1NTYiLCJvYWwiOiIxRiIsImlpZCI6ImQ1M2ExM2MzZjhjODQzM2FhMmUwMDhkYzYwZjUwZDQzIn0.uIammM8g2on5ciM2-7VCrkqlSHB_b4vTSpkl_o_zwX16mEwg36_lVQMh7kp76TnCnLcKx6Cs0GIFw-yWeIMavg"
+        "Authorization": f"Bearer {api_key}"
     }
 
     assetType = "CfdOnIndex"
@@ -21,7 +25,8 @@ def main():
 
     df = pd.DataFrame()
 
-    for month in range(11, 13):
+    for month in range(1, 2):
+        print("Fetching price data....")
         for day in range(1, 31):
             response = get_historical_prices(headers, assetType=assetType, uic=uic, period=period, day=day, month=month)
             formatted_response = format_json(response)
@@ -34,7 +39,7 @@ def main():
             #Then we make a pandas datafram with the data, into a csv file
             new_data = pd.DataFrame({"Date": time_values, "Open": open_ask_values, "High": high_ask_values, "Low": low_ask_values, "Close": close_ask_values})
             df = pd.concat([df, new_data])
-        df.to_csv("pricestest1.csv", index=False)
+        df.to_csv("prices.csv", index=False)
         
 
 
