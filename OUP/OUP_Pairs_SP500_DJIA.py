@@ -28,7 +28,6 @@ theta, mu, sigma = result.x
 
 print(f"Estimated parameters: theta={theta}, mu={mu}, sigma={sigma}")
 
-
 def simulate_ou_process(theta, mu, sigma, X0, T, dt):
     n = int(T / dt)
     t = np.linspace(0, T, n)
@@ -56,10 +55,6 @@ std_deviation = np.std(deviation)
 print(f"Max deviation: {max_deviation}")
 print(f"Standard deviation of deviation: {std_deviation}")
 
-
-
-
-
 log_returns_cumsum = log_returns.cumsum()
 X_sim_cumsum = np.cumsum(X_sim)
 
@@ -74,8 +69,6 @@ df['Date'] = df['Date'].dt.strftime('%Y%m%d')
 
 # Save to CSV
 df.to_csv('../Data/sp500_spreadlog_returns.csv', index=False)
-
-
 
 # Plot the results
 plt.figure(figsize=(12, 6))
