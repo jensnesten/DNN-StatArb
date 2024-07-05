@@ -1,5 +1,9 @@
 # DNN-StatArb
-
+Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. 
+## Requirements
+```bash
+pip install -r requirements.txt
+```
 ## Base model
 
 The base model is a statistical arbitrage pairs trading strategy (Strategies/pairs_statArb.py) that leverages the mean reverting principle described in the Ornstein-Uhlenbeck process.
@@ -10,7 +14,6 @@ def next(self):
         spread_mean = spread.mean()
         spread_std = spread.std()
         zscore = (spread[-1] - spread_mean) / spread_std
-        self.scale_model()
 ```
 We then define the trading logic based on these results in continous time.
 
