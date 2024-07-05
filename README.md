@@ -1,5 +1,5 @@
 # DNN-StatArb
-Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. 
+Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python.  
 ## Requirements
 ```bash
 pip install -r requirements.txt
@@ -15,7 +15,7 @@ def next(self):
         spread_std = spread.std()
         zscore = (spread[-1] - spread_mean) / spread_std
 ```
-We then define the trading logic based on these results in continous time.
+We capitalise on this principle by exploiting temporary mispricing of two highly correlated assets, which in this case is the SP500 and DJIA. We define the trading logic based on the aforementioned parameters in continous time.
 
 ```python
 if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
@@ -32,6 +32,8 @@ if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
                 self.position.close()
 
 ```
+Which under the desired market microstructure will give results like:
+
 
 From here, we introduce a simple scaling function that enables the model to scale non-linearly while maintaining the desired margin impact relative to current equity:
 
@@ -42,6 +44,7 @@ def scale_model(self):
         self.init_cash = self.equity
 
 ```
+
 ## Implementation of feed-forward neural network
 Now that our basemodel is established, we then utilize the universal approximating abilities of feed-forward neural networks, to increase the quality of our trading signal. We first train the neural network in Models/FFNN_train.py, with the features initialised as the spread return, standard deviance of the spread return, mean of the spread return and the Z-score. The training script is currently set to use Apple Silicon GPU: change if you have a CUDA GPU available for faster training:
 
