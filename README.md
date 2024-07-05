@@ -1,5 +1,5 @@
 # DNN-StatArb
-Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python.  
+Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python. Sample data has been provided in the form of 1-minute intraday OHLC data. 
 ## Requirements
 ```bash
 pip install -r requirements.txt
