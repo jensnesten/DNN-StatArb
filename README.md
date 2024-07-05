@@ -1,1 +1,73 @@
 # DNN-StatArb
+
+## Base model
+
+The base model is a statistical arbitrage pairs trading strategy (Strategies/pairs_statArb.py) that leverages the mean reverting principle described in the Ornstein-Uhlenbeck process.
+```python
+def next(self):
+        price = self.data["Close"][-1]
+        spread = self.spread[-self.lookback:]
+        spread_mean = spread.mean()
+        spread_std = spread.std()
+        zscore = (spread[-1] - spread_mean) / spread_std
+        self.scale_model()
+```
+We then define the trading logic based on the results of those calculations in continous time.
+
+```python
+if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
+            self.sell(sl=price + ( self.bidask_spread + self.stop_loss), size=self.size)
+
+        elif zscore < -self.zscore_threshold and len(self.trades) < self.max_position:
+            self.buy(sl=price - (self.bidask_spread + self.stop_loss), size=self.size)
+
+        elif abs(zscore) < self.zscore_threshold / 2:
+            if self.position.is_long:
+                self.position.close()
+                
+            elif self.position.is_short:
+                self.position.close()
+
+```
+
+From here, we introduce a simple scaling function that enables the model to scale non-linearly while maintaining the desired margin impact relative to current equity:
+
+```python
+def scale_model(self):    
+    if self.equity > self.init_cash * (1 + self.scaling_threshold):
+        self.size += 1
+        self.init_cash = self.equity
+
+```
+## Implementation of feed-forward neural network
+Now that our basemodel is established, we then utilize the universal approximating abilities of feed-forward neural networks, to increase the quality of our trading signal. We first train the neural network in Models/FFNN_train.py, with the features initialised as the spread return, standard deviance of the spread return, mean of the spread return and the Z-score. The training script is currently set to use Apple Silicon GPU: change if you have a X86 GPU available for faster training:
+
+```python
+class DeepNN(nn.Module):
+    def __init__(self):
+        super(DeepNN, self).__init__()
+        self.fc1 = nn.Linear(4, 512)
+        self.bn1 = nn.BatchNorm1d(512)
+        self.fc2 = nn.Linear(512, 512)
+        self.bn2 = nn.BatchNorm1d(512)
+        self.fc3 = nn.Linear(512, 256)
+        self.bn3 = nn.BatchNorm1d(256)
+        self.fc4 = nn.Linear(256, 128)
+        self.bn4 = nn.BatchNorm1d(128)
+        self.fc5 = nn.Linear(128, 3)
+        self.dropout = nn.Dropout(0.5)
+
+    def forward(self, x):
+        x = torch.relu(self.bn1(self.fc1(x)))
+        x = self.dropout(x)
+        x = torch.relu(self.bn2(self.fc2(x)))
+        x = self.dropout(x)
+        x = torch.relu(self.bn3(self.fc3(x)))
+        x = self.dropout(x)
+        x = torch.relu(self.bn4(self.fc4(x)))
+        x = self.dropout(x)
+        x = self.fc5(x)
+        return x
+
+```
+Our neural network has a pyramidial architecture, with a maximum of 512 neurons in the first layers. This design is used to progressively reduce the dimensionality of the data as it moves through the network, allowing the network to focus on more abstract and high-level features. In total we have 10 layers: 5 fully connected, 4 batch normalization and 1 dropout to avoid overfitting. The model found in Models/model.pth and Models/scaler.plk, is trained on 4 years of 1 minute intraday data of US500 (SP500) and US30 (DJIA) with a loss of around 0.04. 
