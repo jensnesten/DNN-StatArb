@@ -12,7 +12,7 @@ def next(self):
         zscore = (spread[-1] - spread_mean) / spread_std
         self.scale_model()
 ```
-We then define the trading logic based on the results of those calculations in continous time.
+We then define the trading logic based on these results in continous time.
 
 ```python
 if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
@@ -40,7 +40,7 @@ def scale_model(self):
 
 ```
 ## Implementation of feed-forward neural network
-Now that our basemodel is established, we then utilize the universal approximating abilities of feed-forward neural networks, to increase the quality of our trading signal. We first train the neural network in Models/FFNN_train.py, with the features initialised as the spread return, standard deviance of the spread return, mean of the spread return and the Z-score. The training script is currently set to use Apple Silicon GPU: change if you have a X86 GPU available for faster training:
+Now that our basemodel is established, we then utilize the universal approximating abilities of feed-forward neural networks, to increase the quality of our trading signal. We first train the neural network in Models/FFNN_train.py, with the features initialised as the spread return, standard deviance of the spread return, mean of the spread return and the Z-score. The training script is currently set to use Apple Silicon GPU: change if you have a CUDA GPU available for faster training:
 
 ```python
 class DeepNN(nn.Module):
