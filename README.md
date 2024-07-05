@@ -77,6 +77,7 @@ class DeepNN(nn.Module):
         return x
 
 ```
+## Results
 Our neural network has a pyramidial architecture, with a maximum of 512 neurons in the first layers. This design is used to progressively reduce the dimensionality of the data as it moves through the network, allowing the network to focus on more abstract and high-level features. In total we have 10 layers: 5 fully connected, 4 batch normalization and 1 dropout to avoid overfitting. The model found in Models/model.pth and Models/scaler.plk, is trained on 4 years of 1 minute intraday data of US500 (SP500) and US30 (DJIA) with a loss of around 0.04. 
 ![Figure_5](https://github.com/jensnesten/DNN-StatArb/assets/42718681/86b962e7-4cf9-40e2-bf2d-19d3b881f0ed)
 
