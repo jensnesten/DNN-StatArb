@@ -1,12 +1,12 @@
 # DNN-StatArb
-Deep learning applied to middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python.
+Deep learning applied to middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python. 
 ## Requirements
 ```bash
 pip install -r requirements.txt
 ```
 ## Base model
 
-The base model is a statistical arbitrage pairs trading strategy (Strategies/pairs_statArb.py) that leverages the mean reverting principle described in the Ornstein-Uhlenbeck process.
+The base model is a statistical arbitrage pairs trading strategy (Strategies/pairs_statArb.py), that leverages the mean reverting principle. In OUP we simulate the mean reverting behaviour of this pair using the Ornstein-Uhlenbeck process.
 ```python
 def next(self):
         price = self.data["Close"][-1]
