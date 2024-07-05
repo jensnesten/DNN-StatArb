@@ -1,5 +1,5 @@
 # DNN-StatArb
-Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python. Sample data has been provided in the form of 1-minute intraday OHLC data. 
+Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python.  
 ## Requirements
 ```bash
 pip install -r requirements.txt
@@ -76,3 +76,4 @@ class DeepNN(nn.Module):
 
 ```
 Our neural network has a pyramidial architecture, with a maximum of 512 neurons in the first layers. This design is used to progressively reduce the dimensionality of the data as it moves through the network, allowing the network to focus on more abstract and high-level features. In total we have 10 layers: 5 fully connected, 4 batch normalization and 1 dropout to avoid overfitting. The model found in Models/model.pth and Models/scaler.plk, is trained on 4 years of 1 minute intraday data of US500 (SP500) and US30 (DJIA) with a loss of around 0.04. 
+
