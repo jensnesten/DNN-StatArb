@@ -1,5 +1,5 @@
 # DNN-StatArb
-Deep learning applied to High/Middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python.  
+Deep learning applied to middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python.
 ## Requirements
 ```bash
 pip install -r requirements.txt
@@ -32,6 +32,8 @@ if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
                 self.position.close()
 
 ```
+As we're not trading both instruments simultaneously, it goes without saying that this is not a beta-neutral optimal pairs trading strategy, due to our positions not being hedged beyond the stop-loss: despite it having similar characteristics.
+## Results
 ![Figure_3](https://github.com/jensnesten/DNN-StatArb/assets/42718681/587590e9-78f8-45be-81ff-50e64cabe90d)
 
 From here, we introduce a simple scaling function that enables the model to scale non-linearly while maintaining the desired margin impact relative to current equity:
