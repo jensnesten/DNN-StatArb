@@ -32,7 +32,6 @@ if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
                 self.position.close()
 
 ```
-Which under the desired market microstructure will give results like:
 ![Figure_3](https://github.com/jensnesten/DNN-StatArb/assets/42718681/587590e9-78f8-45be-81ff-50e64cabe90d)
 
 From here, we introduce a simple scaling function that enables the model to scale non-linearly while maintaining the desired margin impact relative to current equity:
