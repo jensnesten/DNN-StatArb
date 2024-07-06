@@ -32,7 +32,7 @@ if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
                 self.position.close()
 
 ```
-As we're not trading both instruments simultaneously, it goes without saying that this is not a beta-neutral optimal pairs trading strategy, due to our positions not being hedged beyond the stop-loss: despite it having similar characteristics.
+As we're not trading both instruments simultaneously, it goes without saying that this is not a beta-neutral optimal pairs trading strategy: despite it exhibiting similar characteristics in equity development.
 ## Results
 ![Figure_3](https://github.com/jensnesten/DNN-StatArb/assets/42718681/587590e9-78f8-45be-81ff-50e64cabe90d)
 
