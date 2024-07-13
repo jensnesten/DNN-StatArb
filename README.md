@@ -6,7 +6,8 @@ pip install -r requirements.txt
 ```
 ## Base model
 
-The base model is a statistical arbitrage pairs trading strategy (Strategies/pairs_statArb.py), that leverages the mean reverting principle. In OUP we simulate the mean reverting behaviour of this pair using the Ornstein-Uhlenbeck process. The strategy is based on calculating the spread return of the closing price of both assets, and from that deriving a z-score:
+The base model is a statistical arbitrage pairs trading strategy (Strategies/pairs_statArb.py), that leverages the mean reverting principle. In OUP we simulate the mean reverting 
+behaviour of this pair as an Ornstein-Uhlenbeck process. The strategy is based on calculating the spread return of the closing price of both assets, and from that deriving a z-score:
 ```python
 def next(self):
         price = self.data["Close"][-1]
