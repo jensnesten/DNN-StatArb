@@ -1,5 +1,7 @@
 # DNN-StatArb
-Deep learning applied to middle frequency statistical arbitrage trading strategies. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python. 
+Deep learning applied to middle frequency statistical arbitrage trading strategies. We trained a multi 
+layer perceptron on 4 years of high frequency price data, with the features defined in 
+Models/FFNN_train.py. For backtesting we will be using backtrader (https://github.com/mementum/backtrader), a simple backtesting engine written in python. 
 ## Requirements
 ```bash
 pip install -r requirements.txt
