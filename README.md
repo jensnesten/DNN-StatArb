@@ -35,7 +35,7 @@ if zscore > self.zscore_threshold and len(self.trades) < self.max_position:
                 self.position.close()
 
 ```
-As we're not trading both instruments simultaneously, it goes without saying that this is not a beta-neutral optimal pairs trading strategy: despite it exhibiting similar characteristics in equity development.
+As we're not trading both instruments simultaneously, it goes without saying that this is not a beta-neutral optimal pairs trading strategy: despite exhibiting similar characteristics in equity development.
 ## Results
 ![Figure_3](https://github.com/jensnesten/DNN-StatArb/assets/42718681/587590e9-78f8-45be-81ff-50e64cabe90d)
 
@@ -80,7 +80,7 @@ class DeepNN(nn.Module):
         return x
 
 ```
-Our neural network has a pyramidial architecture, with a maximum of 512 neurons in the first layers. This design is used to progressively reduce the dimensionality of the data as it moves through the network, allowing the network to focus on more abstract and high-level features. In total we have 10 layers: 5 fully connected, 4 batch normalization and 1 dropout to avoid overfitting. The model found in Models/model.pth and Models/scaler.plk, is trained on 4 years of 1 minute intraday data of US500 (SP500) and US30 (DJIA) with a loss of around 0.04.
+Our neural network has a pyramidial architecture, with a maximum of 512 neurons in the first layers. This design is used to progressively reduce the dimensionality of the data as it moves through the network, allowing it to focus on more abstract and high-level features. In total we have 10 layers: 5 fully connected, 4 batch normalization and 1 dropout to avoid overfitting. The model found in Models/model.pth and Models/scaler.plk, is trained on 4 years of 1 minute intraday data of US500 (SP500) and US30 (DJIA).
 
 ## Results 
 ![Figure_5](https://github.com/jensnesten/DNN-StatArb/assets/42718681/86b962e7-4cf9-40e2-bf2d-19d3b881f0ed)
